@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title></title>
+    <link href="../../Css/bootstrap.css" rel="stylesheet" />
+    <script src="../../Scripts/angular/angular.js"></script>
+    <script src="../../Scripts/angular/ui-bootstrap-tpls.js"></script>
+    <script src="../../Scripts/jquery/jquery-1.12.4.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery/jquery-ui.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery/jquery.cookie.js"></script>
+
+    <script src="../../Scripts/utility/common.js" type="text/javascript"></script>
+    <script src="../../Scripts/utility/base64.js"></script>
+    <script src="../../Scripts/utility/md5.js"></script>
+    <script src="../../Scripts/utility/sha.js"></script>
+    <script src="../../Scripts/custom/utility.js"></script>
+    <script src="../../Scripts/custom/sysContext.js"></script>
+    <script src="../../Scripts/custom/base.js"></script>
+    <script>
+
+        var app = angular.module("app", ["base"]);
+        app.controller("controller", function ($scope, $http, $log, $timeout, $window, $sysContext) {
+            //$scope.loginName = $sysContext.currentLoginName();
+
+            $scope.getwebApi = function () {
+                var url = "../../api/Test/GetAccess";
+                $http.get(url).then(function (result) {
+                    console.info(result);
+                }).catch(function (error) {
+                    console.info(error);
+                }).finally(function () {
+
+                });
+            }
+            $scope.postwebApi = function () {
+                var url = "../../api/Test/PostAccess";
+                $http.post(url, {
+                    LoginName: "admin",
+                    PassWord: "1"
+                }).then(function (result) {
+                    console.info(result);
+                }).catch(function (error) {
+                    console.info(error);
+                }).finally(function () {
+
+                });
+            }
+
+            $scope.login = function () {
+                var user={
+                    LoginName:"admin",
+                    PassWord:"1"
+                }
+                var url = "../../api/Login/Login";
+                $http.post(url, user).then(function (result) {
+                    console.info(result);
+                    if (result.data.Ok) { 
+                        var loginInfo = {
+                            LoginName: result.data.Data.LoginName,
+                            UserId: result.data.Data.UserId,
+                            AppId: result.data.Data.AppId,
+                            ApiKey: result.data.Data.ApiKey,
+                            ExpireTime: result.data.Data.ExpireTime
+                        }
+                        $sysContext.currentLoginInfo(loginInfo); // 登录信息
+                    }
+                }).catch(function (error) {
+                    console.info(error);
+                }).finally(function () {
+
+                });
+            }
+            $scope.logout = function () {
+                $.post("../../api/Login/Logout",
+                          function (data) {
+                              $sysContext.clearCurrentLoginInfo();
+                              console.info(data)
+                              // alert("Data Loaded: " + data);
+
+                          });
+            }
+        });
+
+    </script>
+    <style>
+    </style>
+</head>
+
+
+<body ng-app="app" ng-controller="controller">
+    <div>
+        <a ng-click="getwebApi()">getwebApi</a>
+        <a ng-click="postwebApi()">postwebApi</a>
+        <a ng-click="login()">login</a>
+        <a ng-click="logout()">logout</a>
+    </div>
+</body>
+</html>

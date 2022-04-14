@@ -1,0 +1,63 @@
+.mighty-picker-calendar__day {
+  cursor: pointer;
+  position: relative;
+  color: #333;
+  padding: 5px 5px 5px 5px;
+}
+.mighty-picker-calendar__day--disabled {
+  color: #aaa;
+  cursor: auto;
+}
+.mighty-picker-calendar__day--in-range {
+  color: #347ab3;
+  font-weight: bold;
+}
+.mighty-picker-calendar__day-marker-wrapper {
+  position: relative;
+}
+.mighty-picker-calendar__day-marker {
+  display: none;
+  position: absolute;
+  background: #fff;
+  padding: 4px 6px;
+  border: 1px solid #aaa;
+  bottom: 16px;
+  width:100px;
+}
+.mighty-picker-calendar__day--marked:hover .mighty-picker-calendar__day-marker {
+  display: block;
+}
+.mighty-picker-calendar__day--marked {
+  background-color: red;
+  font-weight: bold;
+}
+.mighty-picker-calendar__day--selected {
+  background-color: lightgreen;
+  font-weight: bold;
+}
+.mighty-picker__month {
+  display: inline-block;
+  margin-left: 0 20px;
+  font:12px Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color:white;
+  width:191px
+}
+.mighty-picker__month table{
+    border-collapse:separate;
+    border:1px solid lightgray;
+}
+.mighty-picker__wrapper {
+     margin-left:20px;
+
+}
+.mighty-picker__month table td{
+    border-collapse:separate;
+    border:1px solid white
+}
+.mighty-picker__month-name{
+    padding-top:4px;
+    height:20px;
+    text-align:center;
+    border: 1px solid lightgray;
+    border-bottom: 0px solid lightgray;
+}
